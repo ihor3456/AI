@@ -1,0 +1,51 @@
+main :-
+    query_1,
+    query_2,
+    query_3,
+    query_4.
+
+query_1 :-
+    write('Наталія доповідіє Проректору'), nl,
+    superior('Наталія', 'Проректор')->
+    write('Yes'),  nl; 
+    write('No'),
+    nl.
+
+query_2 :-
+    write('Марія доповідіє Декану'), nl,
+    superior('Марія', 'Декан')->
+    write('Yes'),  nl; 
+    write('No'),
+    nl.
+
+query_3 :-
+    write('Наталія доповідіє Завідувачу кафедри'), nl,
+    superior('Наталія', 'Завідувач кафедри')->
+    write('Yes'),  nl; 
+    write('No'),
+    nl.
+
+query_4 :-
+    write('Тетяна доповідіє Ректору'), nl,
+    superior('Тетяна', 'Ректор')->
+    write('Yes'),  nl; 
+    write('No'),
+    nl.
+
+% Facts about administrative roles
+administrator('Ігор', 'Проректор').
+administrator('Наталія', 'Декан').
+administrator('Олексій', 'Куратор').
+administrator('Тетяна', 'Завідувач кафедри').
+administrator('Марія', 'Факультетський секретар').
+
+% Hierarchical relationships
+reports_to('Проректор', 'Ректор').
+reports_to('Декан', 'Проректор').
+reports_to('Куратор', 'Декан').
+reports_to('Завідувач кафедри', 'Декан').
+reports_to('Факультетський секретар', 'Декан').
+
+% Rules to define superior
+superior(X, Y) :- administrator(X, Z),
+    reports_to(Z, Y).
